@@ -62,9 +62,9 @@ def main():
       exercise = st.session_state.get("plan_exercise")
       total_reps = st.session_state.get("reps")
       current_set_reps = st.session_state.get("current_set_reps")
-      reps_per_sec = st.session_state.get("reps_per_sec")
+      reps_per_sec = st.session_state.get("plan_reps")
       sets_completed = st.session_state.get("sets_completed")
-      target_sets = st.session_state.get("target_sets")
+      target_sets = st.session_state.get("plan_sets")
       
       st.subheader("Progress")
 
