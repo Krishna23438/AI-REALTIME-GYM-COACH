@@ -29,7 +29,7 @@ def main():
     st.subheader("Workout Plan")
 
     if not workout_started:
-      st.selectbox("Exercise",options=)
+      st.selectbox("Exercise",options=EXERCISE_OPTIONS,key="plan_exercise")
 
 if __name__ == "__main__":
   main()
