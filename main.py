@@ -13,6 +13,8 @@ def main():
   if not render_login_wall():
     return
 
+  initial_session_defaults()
+
   st.write("Hello")
 
 if __name__ == "__main__":
