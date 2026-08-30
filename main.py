@@ -44,7 +44,30 @@ def main():
         st.rerun()
 
     else:
-      st.write("Workout Started!")
+      exercise = st.session_state.get("plan_exercise")
+      sets = st.session_state.get("plan_sets")
+      reps = st.session_state.get("plan_reps")
+
+      st.info(f"**{exercise}** -- {sets} Sets / {reps} Reps")
+
+      end_session_button = st.button("End Session", key="end_session_button",width="stretch")
+
+      if end_session_button:
+        st.session_state["workout_started"] = False
+        st.rerun()
+
+    if workout_started:
+      st.divider()
+
+      exercise = st.session_state.get("plan_exercise")
+      total_reps = st.session_state.get("reps")
+      current_set_reps = st.session_state.get("current_set_reps")
+      
+      st.subheader("Progress")
+
+      st.metric("Total Reps",)
+
+
 
 
 if __name__ == "__main__":
