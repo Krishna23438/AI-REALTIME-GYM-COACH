@@ -15,7 +15,11 @@ def main():
 
   initial_session_defaults()
 
-  st.write("Hello")
+  with st.sidebar:
+    st.title("🏋️ Apna AI Coach")
+
+    if st.session_state.username:
+      st.caption(f"👤 Login as {st.session_state.username}")
 
 if __name__ == "__main__":
   main()
