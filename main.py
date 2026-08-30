@@ -12,6 +12,7 @@ def main():
   if not render_login_wall():
     return
 
+  st.write("Hello")
 
 if __name__ == "__main__":
   main()
