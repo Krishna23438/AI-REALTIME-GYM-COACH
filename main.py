@@ -1,6 +1,7 @@
 import streamlit as st
 from services.auth.login import render_login_wall
 from services.state.session_default import initial_session_defaults
+from services.config.workout_config import EXERCISE_OPTIONS
 
 def main():
   st.set_page_config(
@@ -15,11 +16,20 @@ def main():
 
   initial_session_defaults()
 
+  workout_started = st.session_state.get("workout_started",False)
+
   with st.sidebar:
     st.title("🏋️ Apna AI Coach")
 
     if st.session_state.username:
       st.caption(f"👤 Login as {st.session_state.username}")
+
+    st.divider()
+
+    st.subheader("Workout Plan")
+
+    if not workout_started:
+      st.selectbox("Exercise",options=)
 
 if __name__ == "__main__":
   main()
