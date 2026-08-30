@@ -3,5 +3,15 @@ from services.auth.login import render_login_wall
 
 def main():
   st.set_page_config(
-    
+    page_icon="🏋️",
+    page_title="AI Real-time GYM Coach",
+    initial_sidebar_state="expanded",
+    layout="centered",
   )
+
+  if not render_login_wall():
+    return
+
+
+if __name__ == "__main__":
+  main()
