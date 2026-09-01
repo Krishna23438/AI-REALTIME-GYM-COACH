@@ -43,3 +43,5 @@ def get_user(username):
     SELECT * FROM users WHERE username = ?
   """,(username)).fetchone()
 
+def create_user(username):
+  conn = _get_connection()
