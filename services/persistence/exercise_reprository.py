@@ -72,4 +72,10 @@ def add_exercise(user_id,exercise_name,reps,sets ,time):
     if existing:
       conn.execute("""
           UPDATE exercises
-      """)
+          SET reps = reps + ?, time = time + ?
+          WHERE id  = ?
+      """, (reps ,sets, time,existing['id']))
+    else:
+        conn.execute("""
+          
+        """)
