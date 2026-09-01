@@ -54,4 +54,8 @@ def create_user(username):
 
 def get_or_create_user(username):
   user = get_user(username)
-  
+
+  if user is None:
+    user = create_user(username)
+
+  return user
