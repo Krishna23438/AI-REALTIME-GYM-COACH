@@ -77,5 +77,6 @@ def add_exercise(user_id,exercise_name,reps,sets ,time):
       """, (reps ,sets, time,existing['id']))
     else:
         conn.execute("""
-          
-        """)
+            INSERT INTO exercises (user_id, exercise_name, sets, reps, time)
+            VALUES (?,?,?,?,?)
+        """,(user_id, exercise_name, sets, reps, time))
