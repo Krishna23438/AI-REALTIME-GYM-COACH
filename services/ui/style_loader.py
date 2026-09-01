@@ -14,15 +14,15 @@ def inject_local_font(font_path,  font_name):
   with open(font_path, "rb") as f:
     encoded = base64.b64decode(f.read()).decode()
 
-  ext = os.path.splitext(font_path)[1].strip(".")
+  ext = os.path.splitext(font_path)[1].lstrip(".")
   fmt = {"otf": "opentype"}.get(ext, ext)
-  mine = {"otf": "font/otf"}.get(ext, f"font/{ext}")
+  mime = {"otf": "font/otf"}.get(ext, f"font/{ext}")
 
   st.markdown(f"""
       <style>
       @font-face{{
         font-family:'{font_name}';
-        src: url('date:{mine}; base64,{encoded}') formate('{fmt});
+        src: url('date:{mime}; base64,{encoded}') formate('{fmt});
         font-weight: 100 900;
         font-style: normal;
       }}
