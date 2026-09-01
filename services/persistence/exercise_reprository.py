@@ -22,3 +22,12 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         )
     """)
+
+    conn.execute("""
+      CREATE TABLE IF NOT EXISTS exercises(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER NOT NULL REFERENCES users(id),
+          exercise_name TEXT NOT NULL,
+          reps 
+      )
+    """)
