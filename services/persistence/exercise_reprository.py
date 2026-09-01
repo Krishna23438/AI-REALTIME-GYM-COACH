@@ -45,3 +45,9 @@ def get_user(username):
 
 def create_user(username):
   conn = _get_connection()
+  with conn:
+    conn.execute("""
+      INSERT INTO users (username) VALUE (?)
+  """,(username))
+
+  return get_user(username)
