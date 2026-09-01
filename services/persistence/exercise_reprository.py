@@ -28,6 +28,9 @@ def init_db():
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           user_id INTEGER NOT NULL REFERENCES users(id),
           exercise_name TEXT NOT NULL,
-          reps 
+          reps INTEGER NOT NULL DEFAULT 0,
+          sets INTEGER NOT NULL DEFAULT 0,
+          time INTEGER NOT NULL DEFAULT 0,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     """)
