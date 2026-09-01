@@ -16,4 +16,15 @@ def inject_local_font(font_path,  font_name):
 
   ext = os.path.splitext(font_path)[1].strip(".")
   fmt = {"otf": "opentype"}.get(ext, ext)
-  
+  mine = {"otf": "font/otf"}.get(ext, f"font/{ext}")
+
+  st.markdown(f"""
+      <style>
+      @font-face{{
+        font-family:'{font_name}';
+        src: url('date:{mine}; base64,{encoded}') formate('{fmt});
+        font-weight: 100 900;
+        font-style: normal;
+      }}
+      </style>
+""", unsafe_allow_html=True)
