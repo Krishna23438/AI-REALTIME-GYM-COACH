@@ -1,6 +1,6 @@
 import sqlite3
 import streamlit as st
-import pathlib as Path
+from pathlib import Path
 
 _DB_PATH = str(Path(__file__).parent.parent.parent / "data.db")
 
@@ -19,7 +19,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           username TEXT UNIQUE NOT NULL,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
     # EXERCISE TABLE
