@@ -13,7 +13,7 @@ def _get_connection():
 def init_db():
   conn = _get_connection()
 
-
+  #USERS TABLE 
   with conn:
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users(
@@ -22,7 +22,7 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         )
     """)
-
+    # EXERCISE TABLE
     conn.execute("""
       CREATE TABLE IF NOT EXISTS exercises(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
