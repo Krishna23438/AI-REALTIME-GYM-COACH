@@ -18,8 +18,8 @@ def init_db():
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT UNIQUE NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          username TEXT UNIQUE NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         )
     """)
     # EXERCISE TABLE
@@ -34,3 +34,5 @@ def init_db():
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     """)
+
+# AUTHENTICATION ----
