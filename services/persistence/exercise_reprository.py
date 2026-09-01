@@ -67,7 +67,7 @@ def add_exercise(user_id,exercise_name,reps,sets ,time):
     existing = conn.execute("""
         SELECT * FROM exercises
         WHERE user_id = ? AND  username = ? AND Date('created_at') = Date('now)
-    """)
+    """,(user_id, exercise_name))
 
     if existing:
       conn.execute("""
