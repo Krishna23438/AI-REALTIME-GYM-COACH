@@ -51,3 +51,7 @@ def create_user(username):
   """,(username))
 
   return get_user(username)
+
+def get_or_create_user(username):
+  user = get_user(username)
+  
