@@ -59,3 +59,17 @@ def get_or_create_user(username):
     user = create_user(username)
 
   return user
+
+def add_exercise(user_id,exercise_name,reps,sets ,time):
+  conn = _get_connection()
+
+  with conn:
+    existing = conn.execute("""
+        SELECT * FROM exercises
+        WHERE user_id = ? AND  username = ? AND Date('created_at') = Date('now)
+    """)
+
+    if existing:
+      conn.execute("""
+          UPDATE exercises
+      """)
