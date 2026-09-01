@@ -36,3 +36,10 @@ def init_db():
     """)
 
 # AUTHENTICATION ----
+def get_user(username):
+  conn = _get_connection()
+
+  return conn.execute("""
+    SELECT * FROM users WHERE username = ?
+  """,(username)).fetchone()
+
