@@ -40,15 +40,17 @@ def get_user(username):
   conn = _get_connection()
 
   return conn.execute("""
-    SELECT * FROM users WHERE username = ?
-  """,(username)).fetchone()
+    SELECT * FROM users 
+    WHERE username = ?
+  """,(username,)).fetchone()
 
 def create_user(username):
   conn = _get_connection()
   with conn:
     conn.execute("""
-      INSERT INTO users (username) VALUE (?)
-  """,(username))
+      INSERT INTO users (username) 
+      VALUES (?)
+  """,(username,))
 
   return get_user(username)
 
@@ -89,4 +91,4 @@ def get_users_exercises(user_id):
       SELECT * FROM exercises
       WHERE user_id = ?
 
-  """,(user_id)).fetchall()
+  """,(user_id,)).fetchall()
