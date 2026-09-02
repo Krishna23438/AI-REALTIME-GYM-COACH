@@ -29,3 +29,12 @@ def inject_local_font(font_path,  font_name):
       }}
       </style>
 """, unsafe_allow_html=True)
+
+def inject_webrtc_styles():
+  font_path = os.path.join(os.getcwd(), "static","AdobeClean.otf")
+
+  if not os.path.exists(font_path):
+    return 
+
+  with open(font_path, "rb") as font_file:
+    encoded_font = base64.b16encode(font_file.read()).decode()
