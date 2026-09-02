@@ -126,7 +126,7 @@ def main():
         margin-top: 32px;
     ">
         <h2 style="color: #ccc; margin-bottom: 8px;">Set your workout plan</h2>
-        <p style="font-size: 1.05rem;">Choose your exercise , sets and reps in the sidebar, <br>then click <strong>Start Workout</strong> to activate the camera and 
+        <p style="font-size: 1.05rem;">Choose your exercise , sets and reps in the sidebar, <br>then click <strong>Start Workout</strong> to activate the camera and AI coach
     </p>
   </div>
 
