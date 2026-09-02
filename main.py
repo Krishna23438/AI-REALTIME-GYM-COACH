@@ -135,7 +135,12 @@ def main():
      
 
   else:
-       
+       context = webrtc_streamer(
+            key="exercise-analysis",
+            mode=WebRtcMode.SENDRECV,
+            video_processor_factory=None,
+            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+       )
 
 if __name__ == "__main__":
   main()
