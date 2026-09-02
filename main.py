@@ -149,6 +149,7 @@ def main():
         async_processing=True
     )
  
+  st.markdown("### Workout History")
 
 if __name__ == "__main__":
   main()
