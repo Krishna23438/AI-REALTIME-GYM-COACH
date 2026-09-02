@@ -39,6 +39,6 @@ class SquatDetector(BaseExercise):
 
     if left_vis >= right_vis:
       knee_angle = left_knee_angle
-      hip_idx, kne_idx, ankle_idx, shoulder_idx = self.LEFT_HIP, self.LEFT_KNEE,
+      hip_idx, knee_idx, ankle_idx, shoulder_idx = self.LEFT_HIP, self.LEFT_KNEE,self.LEFT_ANKLE, self.LEFT_SHOULDER
     else:
-      knee_angle = right_knee_angle
+      hip_idx, knee_idx, ankle_idx, shoulder_idx = self.RIGHT_HIP, self.RIGHT_KNEE,self.RIGHT_ANKLE, self.RIGHT_SHOULDER
