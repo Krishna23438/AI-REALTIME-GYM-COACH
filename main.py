@@ -148,9 +148,10 @@ def main():
         },
         async_processing=True
     )
- 
+  inject_webrtc_styles()
   st.markdown("#### Workout History")
 
-  inject_webrtc_styles()
+  
+
 if __name__ == "__main__":
   main()
