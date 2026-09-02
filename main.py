@@ -114,7 +114,7 @@ def main():
                 st.metric("Balance Status", st.session_state.balance_status)
 
   st.title("AI Real-time GYM Coach")
-  st.markdown("### Real-time pose detection with proactive AI voice coaching")
+  st.markdown("#### Real-time pose detection with proactive AI voice coaching")
 
   if not workout_started:
     st.markdown(
@@ -149,7 +149,8 @@ def main():
         async_processing=True
     )
  
-  st.markdown("### Workout History")
+  st.markdown("#### Workout History")
 
+  inject_webrtc_styles()
 if __name__ == "__main__":
   main()
