@@ -38,3 +38,55 @@ def inject_webrtc_styles():
 
   with open(font_path, "rb") as font_file:
     encoded_font = base64.b16encode(font_file.read()).decode()
+
+  components.html(
+    f"""
+      <script>
+    (function patchWebRTCStyles(){{
+      function injectIntoIframe(iframe){{
+        try {{
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (!doc || !doc.head) return;
+                    if (doc.head.querySelector('#webrtc-custom-styles')) return;
+                    const style = doc.createElement('style');
+                    style.id = 'webrtc-custom-styles';
+                    style.id = 'webrtc-custom-styles';
+                    style.textContent = `
+                        @font-face {{
+                        font-family:'AdobeClean';
+                        src: url('data:font/otf;base64, {encoded_font}') format('opentype');
+                        font-weight: 100 900;
+                        font-style: normal;
+                      }}
+                      .MuiButtonBase-root,
+                      .MuiButton-root,
+                      .MuiButton-contained,
+                      MuiButton-text{{
+                        border-radius: 0 !important;
+                        font-family: 'AdobeClean',sans-serif !important;
+                      }}
+                    `;
+                    doc.head.appendChild(style);
+        }} catch (e) {{
+          console.warn('[patcher] could not inject: ', e);
+        }}
+      }}
+
+      function findAndPatch() {{
+        const parentDoc = window.parent.document;
+        const iframes = parentDoc.querySelectorAll('iframe');
+        iframes.forEach(iframe => {{
+          if (iframe.src && iframe.src.includes('webrtc')){{
+            if (iframe.contentDocument && iframe.contentDocument.readyState){{
+              injectIntoIframe(iframe)
+            }}
+            else{{
+              iframe.addEventListener('load',() => injectIntoIframe(iframe))
+            }}
+          }}
+        }})
+      }}
+      findAndPatch()
+    }})()
+  </script>
+    """)
