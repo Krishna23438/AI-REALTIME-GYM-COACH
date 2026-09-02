@@ -112,6 +112,12 @@ def main():
                 st.metric("Torso Angle", f"{st.session_state.torso_angle}°")
                 st.metric("Balance Status", st.session_state.balance_status)
 
+  st.title("AI Real-time GYM Coach")
+  st.markdown("### Real-time pose detection with proactive AI voice coaching")
+
+  if not workout_started:
+       st.markdown("")
+     
 
 if __name__ == "__main__":
   main()
