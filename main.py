@@ -58,7 +58,7 @@ def main():
 
       st.info(f"**{exercise}** -- {sets} Sets / {reps} Reps")
 
-      end_session_button = st.button("End Session", key="end_session_button",width="stretch")
+      end_session_button = st.button("End Workout", key="end_session_button",width="stretch")
 
       if end_session_button:
         st.session_state["workout_started"] = False
