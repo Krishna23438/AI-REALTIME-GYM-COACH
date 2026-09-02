@@ -29,5 +29,7 @@ class SquatDetector(BaseExercise):
     )
 
     right_knee_angle = self.calculate_angle(
-      
+      self.get_point(landmarks, self.RIGHT_HIP),
+      self.get_point(landmarks, self.RIGHT_KNEE),
+      self.get_point(landmarks, self.RIGHT_ANKLE)
     )
