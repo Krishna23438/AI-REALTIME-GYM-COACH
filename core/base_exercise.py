@@ -6,6 +6,10 @@ class BaseExercise(ABC):
     self.reps = 0
     self.stage = None
 
+  def get_point(self, landmarks, idx):
+    p = landmarks[idx]
+    return (p.x, p.y)
+
   @abstractmethod
   def process(self,landmarks):
     pass
