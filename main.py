@@ -3,7 +3,7 @@ import os
 from services.auth.login import render_login_wall
 from services.state.session_default import initial_session_defaults
 from services.config.workout_config import EXERCISE_OPTIONS
-from services.ui.style_loader import load_css, inject_local_font
+from services.ui.style_loader import load_css, inject_local_font,inject_webrtc_styles
 from services.persistence.exercise_reprository import init_db
 from streamlit_webrtc import webrtc_streamer, WebRtcMode
 
