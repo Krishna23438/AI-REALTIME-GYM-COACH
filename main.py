@@ -5,6 +5,7 @@ from services.state.session_default import initial_session_defaults
 from services.config.workout_config import EXERCISE_OPTIONS
 from services.ui.style_loader import load_css, inject_local_font
 from services.persistence.exercise_reprository import init_db
+from streamlit_webrtc import webrtc_streamer, WebRtcMode
 
 def main():
   st.set_page_config(
@@ -132,6 +133,9 @@ def main():
 
       """,unsafe_allow_html=True)
      
+
+  else:
+       
 
 if __name__ == "__main__":
   main()
