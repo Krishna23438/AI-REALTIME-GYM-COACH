@@ -84,9 +84,11 @@ def inject_webrtc_styles():
               iframe.addEventListener('load',() => injectIntoIframe(iframe))
             }}
           }}
-        }})
+        }});
       }}
       findAndPatch()
     }})()
   </script>
-    """)
+    """,
+    height=0,
+    )
