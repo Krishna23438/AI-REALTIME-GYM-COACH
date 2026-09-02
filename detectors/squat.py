@@ -33,3 +33,8 @@ class SquatDetector(BaseExercise):
       self.get_point(landmarks, self.RIGHT_KNEE),
       self.get_point(landmarks, self.RIGHT_ANKLE)
     )
+
+    left_vis = landmarks[self.LEFT_KNEE].visibility
+    right_vis = landmarks[self.RIGHT_KNEE].visibility
+
+    
