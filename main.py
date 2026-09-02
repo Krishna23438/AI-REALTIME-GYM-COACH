@@ -117,35 +117,38 @@ def main():
   st.markdown("### Real-time pose detection with proactive AI voice coaching")
 
   if not workout_started:
-       st.markdown("""
-          <div style="
-        border: 10px dashed #444;
-        border-radius: 0px;
-        padding: 48px 32px;
-        text-align: center;
-        color: #888;
-        margin-top: 32px;
-    ">
-        <h2 style="color: #ccc; margin-bottom: 8px;">👈 Set your workout plan</h2>
-        <p style="font-size: 1.05rem;">Choose your exercise , sets and reps in the sidebar, <br>then click <strong>Start Workout</strong> to activate the camera and AI coach
-    </p>
-  </div>
-
-      """,unsafe_allow_html=True)
-     
-
+    st.markdown(
+        """
+        <div style="
+            border: 10px dashed #444;
+            border-radius: 0px;
+            padding: 48px 32px;
+            text-align: center;
+            color: #888;
+            margin-top: 32px;
+        ">
+            <h2 style="color:#ccc; margin-bottom:8px;">👈 Set your workout plan</h2>
+            <p style="font-size:1.05rem;">
+                Choose your exercise, sets and reps in the sidebar,<br>
+                then click <strong>Start Workout</strong> to activate the camera and AI coach.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
   else:
-       context = webrtc_streamer(
-            key="exercise-analysis",
-            mode=WebRtcMode.SENDRECV,
-            video_processor_factory=None,
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-            media_stream_constraints={
-                 "video":True,
-                 "audio":False
-            },
-            async_processing=True
-       )
+    context = webrtc_streamer(
+        key="exercise-analysis",
+        mode=WebRtcMode.SENDRECV,
+        video_processor_factory=None,
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        media_stream_constraints={
+            "video": True,
+            "audio": False
+        },
+        async_processing=True
+    )
+ 
 
 if __name__ == "__main__":
   main()
