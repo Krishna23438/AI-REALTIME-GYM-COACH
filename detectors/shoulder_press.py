@@ -15,3 +15,6 @@ class ShoulderPressDetector(BaseExercise):
     RIGHT_WRIST = 16
     LEFT_HIP = 23
     RIGHT_HIP = 24
+
+    def __init__(self):
+        super().__init__()
