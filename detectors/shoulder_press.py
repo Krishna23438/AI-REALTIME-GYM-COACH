@@ -1,3 +1,4 @@
+import math
 from core.base_exercise import BaseExercise
 
 class ShoulderPressDetector(BaseExercise):
