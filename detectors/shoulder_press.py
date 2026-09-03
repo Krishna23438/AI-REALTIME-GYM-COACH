@@ -33,5 +33,11 @@ class ShoulderPressDetector(BaseExercise):
             shoulder_idx = self.LEFT_SHOULDER
             elbow_idx = self.LEFT_ELBOW
             wrist_idx = self.LEFT_WRIST
-            hip_isx = self.LEFT_HIP
+            hip_idx = self.LEFT_HIP
             knee_idx = self.LEFT_KNEE
+        else:
+            shoulder_idx = self.RIGHT_SHOULDER
+            elbow_idx = self.RIGHT_ELBOW
+            wrist_idx = self.RIGHT_WRIST
+            hip_idx = self.RIGHT_HIP
+            knee_idx = self.RIGHT_KNEE
