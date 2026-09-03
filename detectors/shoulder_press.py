@@ -41,3 +41,11 @@ class ShoulderPressDetector(BaseExercise):
             wrist_idx = self.RIGHT_WRIST
             hip_idx = self.RIGHT_HIP
             knee_idx = self.RIGHT_KNEE
+
+        elbow_angle = self.calculate_angle(
+            self.get_point(landmarks, shoulder_idx),
+            self.get_point(landmarks, elbow_idx),
+            self.get_point(landmarks, wrist_idx)
+        )
+
+        key_landmarks_visibile = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY and landmarks[elbow_idx].visibility > self.MIN_VISIBILITY and landmarks[wrist_idx].visibility > self.MIN_VISIBILITY
