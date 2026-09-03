@@ -64,3 +64,5 @@ class ShoulderPressDetector(BaseExercise):
             extension_status = "NEARLY EXTENDED"
         elif elbow_angle >= self.DOWN_THRESHOLD:
             extension_status = "PRESSING"
+        else:
+            extension_status = "START POSITION"
