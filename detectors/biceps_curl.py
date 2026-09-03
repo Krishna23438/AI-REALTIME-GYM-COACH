@@ -21,5 +21,8 @@ class BicepsCurlDetector(BaseExercise):
         super().__init__()
         self._shoulder_x_baseline = None
 
-    
+    def reset(self):
+        self.reps = 0
+        self.stage = None
+        self._shoulder_x_baseline = None
     
