@@ -79,3 +79,10 @@ class ShoulderPressDetector(BaseExercise):
             back_arch_status = "Slight Arch"
         else:
             back_arch_status = "Exercis Arch"
+
+        return {
+            "reps": self.reps,
+            "elbow_angle": int(elbow_angle),
+            "extension_status": extension_status,
+            "back_arch_status":back_arch_status,
+        }
