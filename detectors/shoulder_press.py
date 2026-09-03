@@ -66,3 +66,16 @@ class ShoulderPressDetector(BaseExercise):
             extension_status = "PRESSING"
         else:
             extension_status = "START POSITION"
+
+        back_angle = self.calculate_angle(
+            self.get_point(landmarks, shoulder_idx),
+            self.get_point(landmarks, hip_idx),
+            self.get_point(landmarks, knee_idx)
+        )
+
+        if back_angle >= 160:
+            back_arch_status = "Neutral"
+        elif back_angle >= 140:
+            back_arch_status = "Slight Arch"
+        else:
+            back_arch_status = "Exercis Arch"
