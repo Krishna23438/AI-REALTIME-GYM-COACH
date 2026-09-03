@@ -18,3 +18,9 @@ class ShoulderPressDetector(BaseExercise):
 
     def __init__(self):
         super().__init__()
+
+    def reset(self) -> None:
+        self.reps = 0
+        self.stage = None
+
+    
