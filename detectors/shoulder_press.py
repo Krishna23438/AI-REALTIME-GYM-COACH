@@ -15,6 +15,8 @@ class ShoulderPressDetector(BaseExercise):
     RIGHT_WRIST = 16
     LEFT_HIP = 23
     RIGHT_HIP = 24
+    LEFT_KNEE = 25
+    RIGHT_KNEE = 26
 
     def __init__(self):
         super().__init__()
@@ -23,4 +25,13 @@ class ShoulderPressDetector(BaseExercise):
         self.reps = 0
         self.stage = None
 
-    
+    def process(self, landmarks) -> dict:
+        left_vis = landmarks[self.LEFT_ELBOW].visibility
+        right_vis = landmarks[self.RIGHT_ELBOW].visibility
+
+        if left_vis >= right_vis:
+            shoulder_idx = self.LEFT_SHOULDER
+            elbow_idx = self.LEFT_ELBOW
+            wrist_idx = self.LEFT_WRIST
+            hip_isx = self.LEFT_HIP
+            knee_idx = self.LEFT_KNEE
