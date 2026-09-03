@@ -42,3 +42,9 @@ class SquatDetector(BaseExercise):
       hip_idx, knee_idx, ankle_idx, shoulder_idx = self.LEFT_HIP, self.LEFT_KNEE,self.LEFT_ANKLE, self.LEFT_SHOULDER
     else:
       hip_idx, knee_idx, ankle_idx, shoulder_idx = self.RIGHT_HIP, self.RIGHT_KNEE,self.RIGHT_ANKLE, self.RIGHT_SHOULDER
+
+    back_angle = self.calculate_angle(
+      self.get_point(landmarks, shoulder_idx),
+      self.get_point(landmarks, hip_idx),
+      self.get_point(landmarks,knee_idx)
+    )
