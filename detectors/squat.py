@@ -54,3 +54,7 @@ class SquatDetector(BaseExercise):
     if key_landmarks_visible:
       if knee_angle < self.DOWN_THRESHOLD:
          self.stage = "Down"
+
+      if knee_angle >= self.UP_THRESHOLD and self.stage == "Down":
+        self.stage = "Up"
+        self.reps += 1
