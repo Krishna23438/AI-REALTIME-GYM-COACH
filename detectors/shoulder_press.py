@@ -49,3 +49,18 @@ class ShoulderPressDetector(BaseExercise):
         )
 
         key_landmarks_visibile = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY and landmarks[elbow_idx].visibility > self.MIN_VISIBILITY and landmarks[wrist_idx].visibility > self.MIN_VISIBILITY
+
+        if key_landmarks_visibile:
+            if elbow_angle > self.UP_THRESHOLD:
+                self.stage = "up"
+
+            if elbow_angle < self.DOWN_THRESHOLD and self.stage == "up":
+                self.stage = "down"
+                self.reps += 1
+
+        if elbow_angle >= self.UP_THRESHOLD:
+            extension_status = "FULL EXTENSION"
+        elif elbow_angle >= 130:
+            extension_status = "NEARLY EXTENDED"
+        elif elbow_angle >= self.DOWN_THRESHOLD:
+            extension_status = "PRESSING"
