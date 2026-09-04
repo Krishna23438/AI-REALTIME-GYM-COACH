@@ -27,3 +27,10 @@ class PushUpDetector(BaseExercise):
     def process(self, landmarks)-> dict:
         left_vis = landmarks[self.LEFT_ELBOW].visibility
         right_vis = landmarks[self.RIGHT_ELBOW].visibility
+
+        if left_vis >= right_vis:
+            shoulder_idx = self.LEFT_SHOULDER
+            elbow_idx = self.LEFT_ELBOW
+            wrist_idx = self.LEFT_HIP
+            ankle_idx = self.LEFT_ANKLE
+            hip_idx = self.LEFT_HIP
