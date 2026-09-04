@@ -84,4 +84,11 @@ class PushUpDetector(BaseExercise):
         else:
             hip_status = "PIKED UP"
 
+        return{
+            "reps":self.reps,
+            "elbow_angle":int(elbow_angle),
+            "body_alignment": body_alignment,
+            "hip_status":hip_status
+        }
+
         
