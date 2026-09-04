@@ -58,3 +58,12 @@ class BicepsCurlDetector(BaseExercise):
 
             shoulder_x = landmarks[shoulder_idx].x
             elbow_x = landmarks[elbow_idx].x
+            elbow_drift = abs(elbow_x - shoulder_x)
+
+            if elbow_drift <= self.ELBOW_DRIFT_TOLERANCE:
+                shoulder_status = "STABLE"
+            else:
+                shoulder_status = "ELBOW DRIFTING"
+
+            shoulder_mid_x = (landmarks[self.LEFT_SHOULDER].x + landmarks[self.RIGHT_SHOULDER].x)/2
+            shoulder_mid_y = (landmarks[self.LEFT_SHOULDER].y + landmarks[self.RIGHT_SHOULDER].y)/2
