@@ -16,3 +16,14 @@ class PushUpDetector(BaseExercise):
     RIGHT_HIP = 24
     LEFT_ANKLE = 27
     RIGHT_ANKLE = 28
+
+    def __init__(self):
+        super().__init__()
+
+    def reset(self):
+        self.reps = 0
+        self.stage = None
+
+    def process(self, landmarks)-> dict:
+        left_vis = landmarks[self.LEFT_ELBOW].visibility
+        right_vis = landmarks[self.RIGHT_ELBOW].visibility
