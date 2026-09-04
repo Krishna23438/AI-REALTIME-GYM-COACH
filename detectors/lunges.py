@@ -1,0 +1,22 @@
+from core.base_exercise import BaseExercise
+
+class LungesDetector(BaseExercise):
+      UP_THRESHOLD = 160
+      DOWN_THRESHOLD = 100
+      MIN_VISIBILITY = 0.7
+      BALANCE_TOLERANCE = 0.10
+  
+      LEFT_SHOULDER = 11
+      LEFT_ELBOW = 13
+      LEFT_WRIST = 15
+      RIGHT_SHOULDER = 12
+      RIGHT_ELBOW = 14
+      RIGHT_WRIST = 16
+      LEFT_HIP = 23
+      RIGHT_HIP = 24
+      LEFT_ANKLE = 27
+      RIGHT_ANKLE = 28
+      LEFT_KNEE = 25
+      RIGHT_KNEE = 26
+
+      
