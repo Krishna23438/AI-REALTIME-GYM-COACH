@@ -46,3 +46,9 @@ class PushUpDetector(BaseExercise):
             self.get_point(landmarks, elbow_idx),
             self.get_point(landmarks, wrist_idx)
         )
+
+        body_angle = self.calculate_angle(
+            self.get_point(landmarks, shoulder_idx),
+            self.get_point(landmarks, hip_idx),
+            self.get_point(landmarks, ankle_idx),
+        )
