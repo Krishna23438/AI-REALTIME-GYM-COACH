@@ -19,4 +19,9 @@ class LungesDetector(BaseExercise):
       LEFT_KNEE = 25
       RIGHT_KNEE = 26
 
-      
+      def __int__(self):
+            super().__init__()
+
+      def reset(self) -> None:
+           self.reps = 0
+            
