@@ -1,0 +1,18 @@
+from core.base_exercise import BaseExercise
+
+class PushUpDetector(BaseExercise):
+    UP_THRESHOLD = 160
+    DOWN_THRESHOLD = 90
+    MIN_VISIBILITY = 0.7
+    HIP_SAG_TOLERANCE = 0.08
+
+    LEFT_SHOULDER = 11
+    LEFT_ELBOW = 13
+    LEFT_WRIST = 15
+    RIGHT_SHOULDER = 12
+    RIGHT_ELBOW = 14
+    RIGHT_WRIST = 16
+    LEFT_HIP = 23
+    RIGHT_HIP = 24
+    LEFT_ANKLE = 27
+    RIGHT_ANKLE = 28
