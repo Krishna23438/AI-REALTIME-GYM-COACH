@@ -70,3 +70,23 @@ class BicepsCurlDetector(BaseExercise):
 
             hip_mid_x = (landmarks[self.LEFT_HIP].x + landmarks[self.RIGHT_HIP].x)/2
             hip_mid_y = (landmarks[self.LEFT_HIP].y + landmarks[self.RIGHT_HIP].y)/2
+
+            dx = shoulder_mid_x - hip_mid_x
+            dy = shoulder_mid_y - hip_mid_y
+
+            torso_angle_from_vertical = self._safe_angle(dx,dy)
+
+            if torso_angle_from_vertical <= self.SWING_THRESHOLD:
+                swing_status = "NO SWING"
+            else:
+                swing_status = "SWINGING"
+
+            return{
+                "reps":self.reps,
+                "elbow_angle":int(elbow_angle),
+                "shoulder_status":shoulder_status,
+                "swing_status":swing_status,
+            }
+
+        def _safe_angle(self, dx, dy):
+            return math.degrees(math.atan2(abs(dx), abs(dy))) if dy != 0 else 0.0
