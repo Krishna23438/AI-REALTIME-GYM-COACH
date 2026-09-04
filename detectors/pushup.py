@@ -34,3 +34,15 @@ class PushUpDetector(BaseExercise):
             wrist_idx = self.LEFT_HIP
             ankle_idx = self.LEFT_ANKLE
             hip_idx = self.LEFT_HIP
+        else:
+            shoulder_idx = self.RIGHT_SHOULDER
+            elbow_idx = self.RIGHT_ELBOW
+            wrist_idx = self.RIGHT_WRIST
+            hip_idx = self.RIGHT_HIP
+            ankle_idx = self.RIGHT_ANKLE
+
+        elbow_angle = self.calculate_angle(
+            self.get_point(landmarks, shoulder_idx),
+            self.get_point(landmarks, elbow_idx),
+            self.get_point(landmarks, wrist_idx)
+        )
