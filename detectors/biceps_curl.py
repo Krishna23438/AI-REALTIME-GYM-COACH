@@ -41,5 +41,7 @@ class BicepsCurlDetector(BaseExercise):
             wrist_idx = self.RIGHT_WRIST
 
         elbow_angle = self.calculate_angle(
-            
+            self.get_point(landmarks,shoulder_idx),
+            self.get_point(landmarks,elbow_idx),
+            self.get_point(landmarks,wrist_idx),
         )
