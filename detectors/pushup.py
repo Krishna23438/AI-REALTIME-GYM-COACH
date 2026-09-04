@@ -77,4 +77,11 @@ class PushUpDetector(BaseExercise):
         else:
             body_alignment = "Poor Form"
 
+        if abs(hip_deviation) <= self.HIP_SAG_TOLERANCE:
+            hip_status = "LEVEL"
+        elif hip_deviation > self.HIP_SAG_TOLERANCE:
+            hip_status = "SAGGING"
+        else:
+            hip_status = "PIKED UP"
+
         
