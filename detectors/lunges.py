@@ -65,5 +65,21 @@ class LungesDetector(BaseExercise):
           torso_angle = self.calculate_angle(
                self.get_point(landmarks, shoulder_idx_for_torso),
                self.get_point(landmarks, front_hip_idx),
-               self.get_point(landmarks, front_knee_idx),
+               self.get_point(landmarks, front_knee_idx)
           )
+
+          shoulder_mid_x = (landmarks[self.LEFT_SHOULDER].x + landmarks[self.RIGHT_SHOULDER].x) / 2
+          hip_mid_x = (landmarks[self.LEFT_HIP].x + landmarks[self.RIGHT_HIP].x) / 2
+          lateral_offset = abs(shoulder_mid_x - hip_mid_x)
+
+          if lateral_offset <= self.BALANCE_TOLERANCE:
+               balance_status = "BALANCED"
+          else:
+               balance_status = "OFF BALANCE"
+
+          return {
+               "reps": self.reps,
+               "front_knee_angle": int(front_knee_angle),
+               "torso_angle": int(torso_angle),
+               "balance_status": balance_status,
+          }
