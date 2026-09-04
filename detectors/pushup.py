@@ -52,3 +52,21 @@ class PushUpDetector(BaseExercise):
             self.get_point(landmarks, hip_idx),
             self.get_point(landmarks, ankle_idx),
         )
+
+        shoulder_y = landmarks[shoulder_idx].y
+        ankle_y = landmarks[ankle_idx].y
+        hip_y = landmarks[hip_idx].y
+
+        expected_hip_y = (shoulder_y + ankle_y) / 2
+        hip_deviation = hip_y - expected_hip_y
+
+        key_landmarks_visible = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY
+
+        if key_landmarks_visible:
+            if elbow_angle < self.DOWN_THRESHOLD:
+                self.stage = "down"
+
+            if elbow_angle > self.UP_THRESHOLD and self.stage == "down":
+                self.stage = "up"
+                self.reps += 1
+                
