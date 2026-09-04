@@ -69,4 +69,12 @@ class PushUpDetector(BaseExercise):
             if elbow_angle > self.UP_THRESHOLD and self.stage == "down":
                 self.stage = "up"
                 self.reps += 1
-                
+
+        if body_angle > 160:
+            body_alignment = "Straight"
+        elif body_angle > 140:
+            body_alignment = "Slight Bend"
+        else:
+            body_alignment = "Poor Form"
+
+        
