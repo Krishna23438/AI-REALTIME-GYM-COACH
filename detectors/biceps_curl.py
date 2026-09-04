@@ -35,3 +35,11 @@ class BicepsCurlDetector(BaseExercise):
             shoulder_idx = self.LEFT_SHOULDER
             elbow_idx = self.LEFT_ELBOW
             wrist_idx = self.LEFT_WRIST
+        else:
+            shoulder_idx = self.RIGHT_SHOULDER
+            elbow_idx = self.RIGHT_ELBOW
+            wrist_idx = self.RIGHT_WRIST
+
+        elbow_angle = self.calculate_angle(
+            
+        )
