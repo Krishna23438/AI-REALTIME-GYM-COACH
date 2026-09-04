@@ -45,3 +45,7 @@ class BicepsCurlDetector(BaseExercise):
             self.get_point(landmarks,elbow_idx),
             self.get_point(landmarks,wrist_idx),
         )
+
+        key_landmarks_visible = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY
+
+        
