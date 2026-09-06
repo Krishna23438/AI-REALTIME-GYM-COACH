@@ -19,6 +19,7 @@ class VideoProcessorClass(VideoProcessorBase):
          min_pose_detection_confidence = 0.7,
          min_pose_prsence_confidence = 0.7,
          min_tracking_confidence = 0.7,
+         output_segmentation_masks= False
       )
 
-      
+
