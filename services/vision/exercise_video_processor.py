@@ -54,3 +54,6 @@ class VideoProcessorClass(VideoProcessorBase):
         self._exercise_type = exercise_type
 
 
+  def get_exercise(self):
+     with self._lock:
+        return self._exercise_type
