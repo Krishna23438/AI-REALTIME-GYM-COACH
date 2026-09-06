@@ -67,4 +67,11 @@ class VideoProcessorClass(VideoProcessorBase):
         p1 = landmarks[start_idx]
         p2 = landmarks[end_idx]
 
-        
+        if p1.visibility > 0.7 and p2.visibility > 0.7:
+           cv2.line(
+              img,
+              (int(p1.x * w), int(p1.y * h)),
+              (int(p2.x * w), int(p2.y * h)),
+              (0, 255, 0),
+              8
+           )
