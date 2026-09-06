@@ -39,6 +39,10 @@ class VideoProcessorClass(VideoProcessorBase):
 
       self._frame_timestamps_ms = 0
 
+  def set_latest_metrics(self, metrics):
+     with self._lock:
+        self._latest_matrics = metrics.copy()
+
 
 
 
