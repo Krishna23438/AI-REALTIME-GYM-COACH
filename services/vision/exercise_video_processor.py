@@ -3,6 +3,11 @@ import threading
 from streamlit_webrtc import VideoProcessorBase
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+from detectors.squat import SquatDetector
+from detectors.pushup import PushUpDetector
+from detectors.biceps_curl import BicepsCurlDetector
+from detectors.shoulder_press import ShoulderPressDetector
+from detectors.lunges import LungesDetector
 
 class VideoProcessorClass(VideoProcessorBase):
   def __init__(self):
@@ -21,5 +26,10 @@ class VideoProcessorClass(VideoProcessorBase):
          min_tracking_confidence = 0.7,
          output_segmentation_masks= False
       )
+
+      self._landmarker = vision.PoseLandmarker.create_from_options(options)
+
+
+
 
 
