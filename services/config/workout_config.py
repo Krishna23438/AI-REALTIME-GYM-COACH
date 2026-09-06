@@ -6,6 +6,7 @@ EXERCISE_OPTIONS=[
   "Lunges"
 ]
 
+
 POSE_CONNECTIONS = [
   (11,12),(11,13),(13,15),(12,14),(14,16), # shoulders & Arms
   (11,23),(12,24),(23,24), # Torso / Hips
