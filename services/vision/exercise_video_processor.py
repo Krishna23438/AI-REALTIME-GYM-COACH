@@ -37,6 +37,8 @@ class VideoProcessorClass(VideoProcessorBase):
          "Lunges": LungesDetector(),
       }
 
+      self._frame_timestamps_ms = 0
+
 
 
 
