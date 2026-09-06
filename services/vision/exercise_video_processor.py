@@ -75,3 +75,13 @@ class VideoProcessorClass(VideoProcessorBase):
               (0, 255, 0),
               8
            )
+
+     for lm in landmarks:
+        if lm.visibility > 0.7:
+           cv2.circle(
+              img,
+              (int(lm.x * w), int(lm.y * h)),
+              8,
+              (255 , 0, 0),
+              -1
+           )
