@@ -1,4 +1,5 @@
 import os
+import cv2
 import threading
 from streamlit_webrtc import VideoProcessorBase
 from mediapipe.tasks import python
@@ -8,6 +9,7 @@ from detectors.pushup import PushUpDetector
 from detectors.biceps_curl import BicepsCurlDetector
 from detectors.shoulder_press import ShoulderPressDetector
 from detectors.lunges import LungesDetector
+from services.config.workout_config import POSE_CONNECTIONS
 
 class VideoProcessorClass(VideoProcessorBase):
   def __init__(self):
