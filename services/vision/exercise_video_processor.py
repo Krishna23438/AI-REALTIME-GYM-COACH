@@ -59,3 +59,12 @@ class VideoProcessorClass(VideoProcessorBase):
   def get_exercise(self):
      with self._lock:
         return self._exercise_type
+
+  def _draw_skeleton(self, img, landmarks):
+     h, w = img.shape[:2]
+
+     for start_idx, end_idx in POSE_CONNECTIONS:
+        p1 = landmarks[start_idx]
+        p2 = landmarks[end_idx]
+
+        
