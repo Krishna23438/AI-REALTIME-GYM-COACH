@@ -85,3 +85,7 @@ class VideoProcessorClass(VideoProcessorBase):
               (255 , 0, 0),
               -1
            )
+
+     return img
+
+  
