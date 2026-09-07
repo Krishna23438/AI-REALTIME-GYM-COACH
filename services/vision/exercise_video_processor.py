@@ -209,4 +209,15 @@ class VideoProcessorClass(VideoProcessorBase):
 
             self._draw_skeleton(image, landmarks)
 
-            
+            ex_type = self.get_exercise()
+
+            detector = self._detectors.get(ex_type)
+
+            if detector:
+                metrics = detector.process(landmarks)
+
+                self._draw_overlays(image, metrics, ex_type)
+
+                self.set_latest_metrics(metrics)
+        else:
+            self._draw_no_pose_warning(image)
