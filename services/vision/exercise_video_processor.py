@@ -204,4 +204,9 @@ class VideoProcessorClass(VideoProcessorBase):
             mp_image, self._frame_timestamps_ms
         )
 
-        
+        if result.pose_landmarks:
+            landmarks = result.pose_landmarks[0]
+
+            self._draw_skeleton(image, landmarks)
+
+            
