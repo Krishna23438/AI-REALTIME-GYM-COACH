@@ -13,7 +13,11 @@ from detectors.biceps_curl import BicepsCurlDetector
 from detectors.shoulder_press import ShoulderPressDetector
 from detectors.lunges import LungesDetector
 from services.config.workout_config import POSE_CONNECTIONS
-from streamlit_webrtc import webrtc_streamer, WebRtcMode
+from streamlit_webrtc import (
+    VideoProcessorBase,
+    webrtc_streamer,
+    WebRtcMode
+)
 
 
 class VideoProcessorClass(VideoProcessorBase):
