@@ -158,3 +158,16 @@ class VideoProcessorClass(VideoProcessorBase):
           (0, 255, 0),
           2,
       )
+
+  def _draw_press_overlays(self, img, metrics):
+        h, _ = img.shape[:2]
+
+        cv2.putText(
+            img,
+            f"EXT: {metrics['extension_status']} | BACK: {metrics['back_arch_status']}",
+            (20, h - 20),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2,
+        )
