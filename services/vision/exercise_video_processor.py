@@ -98,4 +98,15 @@ class VideoProcessorClass(VideoProcessorBase):
         cv2.LINE_AA
      )
 
+     cv2.putText(
+             img,
+             "PLEASE FACE THE CAMERA",
+             (30,100),
+             cv2.FONT_HERSHEY_SIMPLEX,
+             1,
+             (0,255,0),
+             2,
+             cv2.LINE_AA
+          )
+
   
