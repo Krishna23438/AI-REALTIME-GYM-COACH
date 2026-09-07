@@ -86,6 +86,16 @@ class VideoProcessorClass(VideoProcessorBase):
               -1
            )
 
-     return img
+  def _draw_no_pose_warning(self,img):
+     cv2.putText(
+        img,
+        "NO POSE DETECTED",
+        (30,50),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1,
+        (0,255,0),
+        2,
+        cv2.LINE_AA
+     )
 
   
