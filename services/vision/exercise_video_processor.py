@@ -109,4 +109,8 @@ class VideoProcessorClass(VideoProcessorBase):
              cv2.LINE_AA
           )
 
+  def _draw_overlays(self, img, metrics, ex_type):
+     if ex_type == "Squats":
+        self._draw_squats_overlays(img, metrics)
+
   
