@@ -201,6 +201,7 @@ class VideoProcessorClass(VideoProcessorBase):
 
         self._frame_timestamps_ms += 30
         result = self._landmarker.detect_for_video(
-            mp_image,
+            mp_image, self._frame_timestamps_ms
         )
 
+        
