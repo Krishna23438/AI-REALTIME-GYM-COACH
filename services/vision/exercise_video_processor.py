@@ -13,6 +13,7 @@ from detectors.biceps_curl import BicepsCurlDetector
 from detectors.shoulder_press import ShoulderPressDetector
 from detectors.lunges import LungesDetector
 from services.config.workout_config import POSE_CONNECTIONS
+from streamlit_webrtc import webrtc_streamer, WebRtcMode
 
 
 class VideoProcessorClass(VideoProcessorBase):
@@ -189,6 +190,7 @@ class VideoProcessorClass(VideoProcessorBase):
         )
 
     def recv(self, frame):
+        print("FRAME RECEIVED")
         image = np.asarray(
             cv2.flip(frame.to_ndarray(format="bgr24"), 1),
             dtype=np.uint8
@@ -229,4 +231,15 @@ class VideoProcessorClass(VideoProcessorBase):
                     self._latest_metrics = {"pose_detected": False}
 
         return av.VideoFrame.from_ndarray(image, format="bgr24")
-    
+
+    # START WEBRTC CAMERA
+webrtc_ctx = webrtc_streamer(
+    key="gym-coach",
+    mode=WebRtcMode.SENDRECV,
+    video_processor_factory=VideoProcessorClass,
+    media_stream_constraints={
+        "video": True,
+        "audio": False,
+    },
+    async_processing=True,
+)
