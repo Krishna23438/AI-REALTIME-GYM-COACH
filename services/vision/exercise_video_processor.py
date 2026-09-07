@@ -1,5 +1,6 @@
 import os
 import cv2
+import av
 import threading
 import numpy as np
 import mediapipe as mp
@@ -221,3 +222,7 @@ class VideoProcessorClass(VideoProcessorBase):
                 self.set_latest_metrics(metrics)
         else:
             self._draw_no_pose_warning(image)
+
+        return av.VideoFrame.from_ndarray(image, format="bgr24")
+
+  
