@@ -95,7 +95,7 @@ class VideoProcessorClass(VideoProcessorBase):
         1,
         (0,255,0),
         2,
-        cv2.LINE_AA
+        cv2.LINE_AA,
      )
 
      cv2.putText(
@@ -106,11 +106,22 @@ class VideoProcessorClass(VideoProcessorBase):
              1,
              (0,255,0),
              2,
-             cv2.LINE_AA
+             cv2.LINE_AA,
           )
 
   def _draw_overlays(self, img, metrics, ex_type):
      if ex_type == "Squats":
         self._draw_squats_overlays(img, metrics)
 
+  def _draw_sqauts_overlays(self, img, metrics):
+      h, _ = img.shape[:2]
+      cv2.putText(
+         img,
+         f"DEPTH {metrics['depth_status']}",
+         {20, h - 20},
+         cv2.FONT_HERSHEY_SIMPLEX,
+         1,
+         (0,255,0),
+         2,
+      )
   
