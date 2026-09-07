@@ -1,6 +1,7 @@
 import os
 import cv2
 import threading
+import numpy as np
 from streamlit_webrtc import VideoProcessorBase
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
