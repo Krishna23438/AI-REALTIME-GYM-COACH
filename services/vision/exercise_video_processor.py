@@ -2,6 +2,7 @@ import os
 import cv2
 import threading
 import numpy as np
+import mediapipe as mp
 from streamlit_webrtc import VideoProcessorBase
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
@@ -192,3 +193,14 @@ class VideoProcessorClass(VideoProcessorBase):
             cv2.flip(frame.to_ndarray(format="bgr24"), 1),
             dtype=np.uint8
         )
+
+        mp_image = mp.Image(
+            imaage_formate = mp.ImageFormat.SRGB,
+            data = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        )
+
+        self._frame_timestamps_ms += 30
+        result = self._landmarker.detect_for_video(
+            mp_image,
+        )
+
