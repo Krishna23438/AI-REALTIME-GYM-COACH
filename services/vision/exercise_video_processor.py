@@ -1,6 +1,7 @@
 import os
 import cv2
 import av
+import time
 import numpy as np
 import mediapipe as mp
 import threading
@@ -194,48 +195,111 @@ class VideoProcessorClass(VideoProcessorBase):
         )
 
     def recv(self, frame):
-        print("FRAME RECEIVED")
-        image = np.asarray(
-            cv2.flip(frame.to_ndarray(format="bgr24"), 1),
-            dtype=np.uint8
-        )
 
+        print("1. FRAME RECEIVED")
+
+    # WebRTC frame -> OpenCV BGR
+        image = frame.to_ndarray(format="bgr24")
+        print("2. FRAME CONVERTED")
+
+    # Mirror camera
+        image = cv2.flip(image, 1)
+
+    # BGR -> RGB
+        rgb_image = cv2.cvtColor(
+        image,
+        cv2.COLOR_BGR2RGB
+        )
+        print("3. RGB CONVERTED")
+
+    # Create MediaPipe image
         mp_image = mp.Image(
-            image_format=mp.ImageFormat.SRGB,
-            data=cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image_format=mp.ImageFormat.SRGB,
+        data=rgb_image
+        )
+        print("4. MP IMAGE CREATED")
+
+    # Generate increasing timestamp
+        current_timestamp_ms = int(time.monotonic() * 1000)
+
+        if current_timestamp_ms <= self._frame_timestamps_ms:
+            current_timestamp_ms = self._frame_timestamps_ms + 1
+
+        self._frame_timestamps_ms = current_timestamp_ms
+
+        print("5. BEFORE MEDIAPIPE")
+
+    # MediaPipe inference
+        result = self._landmarker.detect_for_video(
+            mp_image,
+            self._frame_timestamps_ms
         )
 
-        self._frame_timestamps_ms += 30
-        result = self._landmarker.detect_for_video(mp_image, self._frame_timestamps_ms)
+        print("6. AFTER MEDIAPIPE")
+
+    # -----------------------------------------
+    # POSE DETECTED
+    # -----------------------------------------
 
         if result.pose_landmarks:
-            landmarks = result.pose_landmarks[0]
 
-            self._draw_skeleton(image, landmarks)
+            print("7. POSE DETECTED")
+
+            landmarks = result.pose_landmarks[0]
 
             ex_type = self.get_exercise()
 
             detector = self._detectors.get(ex_type)
 
             if detector:
+
+                print("8. BEFORE DETECTOR")
+
                 metrics = detector.process(landmarks)
+                print("METRICS:", metrics)
+
+                print("9. AFTER DETECTOR")
 
                 metrics["pose_detected"] = True
 
-                self._draw_overlays(image, metrics, ex_type)
+            # Draw skeleton
+                self._draw_skeleton(
+                image,
+                landmarks
+                )
 
+            # Draw exercise information
+                self._draw_overlays(
+                image,
+                metrics,
+                ex_type
+                )
+
+            # Save latest metrics
                 self.set_latest_metrics(metrics)
+
+    # -----------------------------------------
+    # NO POSE
+    # -----------------------------------------
+
         else:
+
+            print("7. NO POSE")
+
             self._draw_no_pose_warnings(image)
-            
-            with self._lock:
-                if self._latest_metrics is not None:
-                    self._latest_metrics["pose_detected"] = False
-                else:
-                    self._latest_metrics = {"pose_detected": False}
 
-        return av.VideoFrame.from_ndarray(image, format="bgr24")
+            self.set_latest_metrics({
+            "pose_detected": False
+            })
 
+        print("10. FRAME RETURNING")
+
+        return av.VideoFrame.from_ndarray(
+        image,
+        format="bgr24"
+        )
+
+    
     # START WEBRTC CAMERA
 webrtc_ctx = webrtc_streamer(
     key="gym-coach",
