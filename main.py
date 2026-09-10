@@ -89,7 +89,7 @@ def main():
     if workout_started:
       st.divider()
 
-      exercise = st.session_state.get("plan_exercise")
+      exercise = st.session_state.get("exercise_type")
       total_reps = st.session_state.get("reps")
       current_set_reps = st.session_state.get("current_set_reps")
       reps_per_sec = st.session_state.get("plan_reps")
