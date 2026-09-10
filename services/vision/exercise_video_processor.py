@@ -191,22 +191,18 @@ class VideoProcessorClass(VideoProcessorBase):
 
     def recv(self, frame):
         try:
-            print("\n==============================")
-            print("1. FRAME RECEIVED")
 
         # -------------------------
         # Convert WebRTC frame
         # -------------------------
             image = frame.to_ndarray(format="bgr24")
 
-            print("2. FRAME CONVERTED")
 
         # -------------------------
         # Mirror camera
         # -------------------------
             image = cv2.flip(image, 1)
 
-            print("3. FRAME FLIPPED")
 
         # -------------------------
         # BGR -> RGB
@@ -216,7 +212,6 @@ class VideoProcessorClass(VideoProcessorBase):
                 cv2.COLOR_BGR2RGB
             )
 
-            print("4. RGB CONVERTED")
 
         # -------------------------
         # MediaPipe image
@@ -226,7 +221,6 @@ class VideoProcessorClass(VideoProcessorBase):
                 data=rgb_image
             )
 
-            print("5. MP IMAGE CREATED")
 
         # -------------------------
         # Timestamp
@@ -245,37 +239,31 @@ class VideoProcessorClass(VideoProcessorBase):
         # -------------------------
         # MediaPipe
         # -------------------------
-            print("7. BEFORE MEDIAPIPE")
+
 
             result = self._landmarker.detect_for_video(
                 mp_image,
                 self._frame_timestamps_ms
             )
 
-            print("8. AFTER MEDIAPIPE")
 
         # -------------------------
         # Pose detected
         # -------------------------
             if result.pose_landmarks:
 
-                print("9. POSE DETECTED")
 
                 landmarks = result.pose_landmarks[0]
 
                 ex_type = self.get_exercise()
 
-                print(f"10. EXERCISE = {ex_type}")
-
                 detector = self._detectors.get(ex_type)
 
                 if detector:
 
-                    print("11. BEFORE DETECTOR")
 
                     metrics = detector.process(landmarks)
 
-                    print("12. AFTER DETECTOR")
                     print("METRICS:", metrics)
 
                     metrics["pose_detected"] = True
@@ -283,19 +271,17 @@ class VideoProcessorClass(VideoProcessorBase):
                 # -------------------------
                 # Skeleton
                 # -------------------------
-                    print("13. BEFORE SKELETON")
+
 
                     self._draw_skeleton(
                         image,
                         landmarks
                     )
 
-                    print("14. AFTER SKELETON")
 
                 # -------------------------
                 # Overlay
                 # -------------------------
-                    print("15. BEFORE OVERLAY")
 
                     self._draw_overlays(
                         image,
@@ -303,13 +289,9 @@ class VideoProcessorClass(VideoProcessorBase):
                         ex_type
                     )
 
-                    print("16. AFTER OVERLAY")
-
                     self.set_latest_metrics(metrics)
 
             else:
-
-                print("9. NO POSE")
 
                 self._draw_no_pose_warnings(image)
 
@@ -321,7 +303,6 @@ class VideoProcessorClass(VideoProcessorBase):
         # Return frame
         # -------------------------
 
-            print("17. RETURNING FRAME")
 
             return av.VideoFrame.from_ndarray(
                 image,
@@ -330,9 +311,6 @@ class VideoProcessorClass(VideoProcessorBase):
 
         except Exception as e:
 
-            print("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print("ERROR INSIDE recv()")
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
             import traceback
             traceback.print_exc()

@@ -19,7 +19,7 @@ class BaseExercise(ABC):
     if mag_a * mag_c == 0:
       return 0.0
 
-    cos_angle = max(-1.0, min(1.0, min(1.0, dot / (mag_a * mag_c))))
+    cos_angle = max(-1.0, min(1.0, dot / (mag_a * mag_c)))
 
     return math.degrees(math.acos(cos_angle))
 

@@ -23,6 +23,16 @@ class SquatDetector(BaseExercise):
         self.stage = None
 
     def process(self, landmarks):
+        print("\n--- LANDMARK DEBUG ---")
+
+        for idx in [11, 12, 23, 24, 25, 26, 27, 28]:
+            p = landmarks[idx]
+            print(
+                idx,
+                "x=", round(p.x, 3),
+                "y=", round(p.y, 3),
+                "visibility=", round(p.visibility, 3)
+              )
         left_knee_angle = self.calculate_angle(
             self.get_point(landmarks, self.LEFT_HIP),
             self.get_point(landmarks, self.LEFT_KNEE),
