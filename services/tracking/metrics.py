@@ -14,6 +14,14 @@ def sync_metrics_update(context):
   if not exercise:
      return
 
-  
+  processor.set_exercise(exercise)
+  latest_metrics = processor.get_latest_metrics()
+
+  if not latest_metrics:
+     return
+
+
+  reps = latest_metrics.get("reps")
+  st.session_state.reps = reps
 
   
