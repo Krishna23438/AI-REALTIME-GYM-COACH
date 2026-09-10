@@ -1,4 +1,5 @@
 import streamlit as st
+from services.config.workout_config import METRICS_FIELDS
 
 def sync_metrics_update(context):
   if not context or not hasattr(context, "state") or not context.state.playing:
@@ -24,4 +25,7 @@ def sync_metrics_update(context):
   reps = latest_metrics.get("reps")
   st.session_state.reps = reps
 
+  fields = METRICS_FIELDS.get(exercise)
+
+  
   
