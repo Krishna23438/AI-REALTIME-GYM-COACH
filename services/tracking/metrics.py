@@ -27,5 +27,10 @@ def sync_metrics_update(context):
 
   fields = METRICS_FIELDS.get(exercise)
 
-  
+  if not fields:
+     return
+
+
+  for key ,default in fields.items():
+     st.session_state[key] = latest_metrics.get(key, default)
   
