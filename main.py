@@ -61,6 +61,8 @@ def main():
                 st.session_state.set_cycle_started_at = time.time()
                 st.session_state.last_saved_sets_completed = 0
 
+                if "voice_pipeline" not in st.session_state:
+                  st.session_state.voice_pipeline = None
                 if st.session_state.voice_pipeline:
                     result = st.session_state.voice_pipeline.process_event(
                         event="workout_started",
