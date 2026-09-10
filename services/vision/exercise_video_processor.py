@@ -232,10 +232,6 @@ class VideoProcessorClass(VideoProcessorBase):
 
             self._frame_timestamps_ms = current_timestamp_ms
 
-            print(
-                f"6. TIMESTAMP = {self._frame_timestamps_ms}"
-            )
-
         # -------------------------
         # MediaPipe
         # -------------------------
@@ -263,8 +259,6 @@ class VideoProcessorClass(VideoProcessorBase):
 
 
                     metrics = detector.process(landmarks)
-
-                    print("METRICS:", metrics)
 
                     metrics["pose_detected"] = True
 

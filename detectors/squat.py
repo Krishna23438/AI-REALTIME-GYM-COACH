@@ -23,7 +23,6 @@ class SquatDetector(BaseExercise):
         self.stage = None
 
     def process(self, landmarks):
-        print("\n--- LANDMARK DEBUG ---")
 
         left_knee_angle = self.calculate_angle(
             self.get_point(landmarks, self.LEFT_HIP),

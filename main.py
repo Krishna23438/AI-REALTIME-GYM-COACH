@@ -149,7 +149,7 @@ def main():
         },
         async_processing=True
     )
-  inject_webrtc_styles()
+    inject_webrtc_styles()
   st.markdown("#### Workout History")
 
   
