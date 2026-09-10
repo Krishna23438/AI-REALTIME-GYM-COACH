@@ -1,8 +1,9 @@
 from core.base_exercise import BaseExercise
 
+
 class PushUpDetector(BaseExercise):
-    UP_THRESHOLD = 160
     DOWN_THRESHOLD = 90
+    UP_THRESHOLD = 160
     MIN_VISIBILITY = 0.7
     HIP_SAG_TOLERANCE = 0.08
 
@@ -20,20 +21,20 @@ class PushUpDetector(BaseExercise):
     def __init__(self):
         super().__init__()
 
-    def reset(self):
+    def reset(self) -> None:
         self.reps = 0
         self.stage = None
 
-    def process(self, landmarks)-> dict:
+    def process(self, landmarks) -> dict:
         left_vis = landmarks[self.LEFT_ELBOW].visibility
         right_vis = landmarks[self.RIGHT_ELBOW].visibility
 
         if left_vis >= right_vis:
             shoulder_idx = self.LEFT_SHOULDER
             elbow_idx = self.LEFT_ELBOW
-            wrist_idx = self.LEFT_HIP
-            ankle_idx = self.LEFT_ANKLE
+            wrist_idx = self.LEFT_WRIST
             hip_idx = self.LEFT_HIP
+            ankle_idx = self.LEFT_ANKLE
         else:
             shoulder_idx = self.RIGHT_SHOULDER
             elbow_idx = self.RIGHT_ELBOW
@@ -44,7 +45,7 @@ class PushUpDetector(BaseExercise):
         elbow_angle = self.calculate_angle(
             self.get_point(landmarks, shoulder_idx),
             self.get_point(landmarks, elbow_idx),
-            self.get_point(landmarks, wrist_idx)
+            self.get_point(landmarks, wrist_idx),
         )
 
         body_angle = self.calculate_angle(
@@ -60,8 +61,8 @@ class PushUpDetector(BaseExercise):
         expected_hip_y = (shoulder_y + ankle_y) / 2
         hip_deviation = hip_y - expected_hip_y
 
-        key_landmarks_visible = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY
-
+        key_landmarks_visible = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY and landmarks[elbow_idx].visibility > self.MIN_VISIBILITY and landmarks[wrist_idx].visibility > self.MIN_VISIBILITY and landmarks[hip_idx].visibility > self.MIN_VISIBILITY
+        
         if key_landmarks_visible:
             if elbow_angle < self.DOWN_THRESHOLD:
                 self.stage = "down"
@@ -84,11 +85,10 @@ class PushUpDetector(BaseExercise):
         else:
             hip_status = "PIKED UP"
 
-        return{
-            "reps":self.reps,
-            "elbow_angle":int(elbow_angle),
+        return {
+            "reps": self.reps,
+            "elbow_angle": int(elbow_angle),
             "body_alignment": body_alignment,
-            "hip_status":hip_status
+            "hip_status": hip_status,
         }
-
-        
+    

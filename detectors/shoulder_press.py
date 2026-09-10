@@ -1,12 +1,10 @@
-import math
 from core.base_exercise import BaseExercise
 
+
 class ShoulderPressDetector(BaseExercise):
-    UP_THRESHOLD = 50
-    DOWN_THRESHOLD = 160
+    UP_THRESHOLD = 160
+    DOWN_THRESHOLD = 90
     MIN_VISIBILITY = 0.7
-    ELBOW_DRIFT_TOLERANCE = 0.06
-    SWING_THRESHOLD = 15
 
     LEFT_SHOULDER = 11
     LEFT_ELBOW = 13
@@ -46,12 +44,12 @@ class ShoulderPressDetector(BaseExercise):
         elbow_angle = self.calculate_angle(
             self.get_point(landmarks, shoulder_idx),
             self.get_point(landmarks, elbow_idx),
-            self.get_point(landmarks, wrist_idx)
+            self.get_point(landmarks, wrist_idx),
         )
 
-        key_landmarks_visibile = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY and landmarks[elbow_idx].visibility > self.MIN_VISIBILITY and landmarks[wrist_idx].visibility > self.MIN_VISIBILITY
+        key_landmarks_visible = landmarks[shoulder_idx].visibility > self.MIN_VISIBILITY and landmarks[elbow_idx].visibility > self.MIN_VISIBILITY and landmarks[wrist_idx].visibility > self.MIN_VISIBILITY
 
-        if key_landmarks_visibile:
+        if key_landmarks_visible:
             if elbow_angle > self.UP_THRESHOLD:
                 self.stage = "up"
 
@@ -71,7 +69,7 @@ class ShoulderPressDetector(BaseExercise):
         back_angle = self.calculate_angle(
             self.get_point(landmarks, shoulder_idx),
             self.get_point(landmarks, hip_idx),
-            self.get_point(landmarks, knee_idx)
+            self.get_point(landmarks, knee_idx),
         )
 
         if back_angle >= 160:
@@ -79,11 +77,12 @@ class ShoulderPressDetector(BaseExercise):
         elif back_angle >= 140:
             back_arch_status = "Slight Arch"
         else:
-            back_arch_status = "Exercis Arch"
+            back_arch_status = "Excessive Arch"
 
         return {
             "reps": self.reps,
             "elbow_angle": int(elbow_angle),
             "extension_status": extension_status,
-            "back_arch_status":back_arch_status,
+            "back_arch_status": back_arch_status,
         }
+    
