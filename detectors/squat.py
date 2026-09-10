@@ -71,7 +71,7 @@ class SquatDetector(BaseExercise):
       "reps":self.reps,
       "knee_angle":int(knee_angle),
       "back_angle": int(back_angle),
-      depth_status: depth_status
+      "depth_status": depth_status
     }
 
    
