@@ -179,6 +179,9 @@ def main():
          st.rerun()
 
     inject_webrtc_styles()
+
+  st.divider()
+  
   st.markdown("#### Workout History")
 
   
