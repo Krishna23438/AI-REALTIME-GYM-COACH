@@ -22,7 +22,15 @@ def sync_metrics_update(context):
      return
 
 
-  reps = latest_metrics.get("reps")
+  reps = latest_metrics.get("reps",0)
+
+  if reps is None:
+          reps = 0
+
+  st.session_state.reps = reps
+
+  
+        
   st.session_state.reps = reps
 
   fields = METRICS_FIELDS.get(exercise)
@@ -37,8 +45,8 @@ def sync_metrics_update(context):
   reps_per_set = st.session_state.get("reps_per_set", 0)
   target_sets = st.session_state.get("target_sets", 0)
 
-  if reps_per_set > 0 and target_sets > 0:
-      sets_completed =  reps // reps_per_set
+  if reps is not None and reps_per_set > 0 and target_sets > 0:
+      sets_completed =  reps // reps_per_set 
       current_set_reps = reps % reps_per_set
       workout_completed = sets_completed >= target_sets
   else:
