@@ -1,6 +1,7 @@
 import time
 import streamlit as st
 from services.config.workout_config import METRICS_FIELDS
+from services.persistence.exercise_reprository import add_exercise
 
 def sync_metrics_update(context):
   if not context or not hasattr(context, "state") or not context.state.playing:
@@ -68,4 +69,6 @@ def sync_metrics_update(context):
       started_at = st.session_state.get("set_cycle_started_at", now_ts)
       time_taken = now_ts - started_at
       user_id = st.session_state.get("user_id", 0)
+
+      add_exercise(user_id, exercise, newly_completed * reps_per_set , newly_completed, time_taken)
       
