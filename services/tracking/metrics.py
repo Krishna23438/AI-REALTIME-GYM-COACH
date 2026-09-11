@@ -1,3 +1,4 @@
+import time
 import streamlit as st
 from services.config.workout_config import METRICS_FIELDS
 
@@ -59,3 +60,12 @@ def sync_metrics_update(context):
   st.session_state.current_set_reps = current_set_reps
   st.session_state.workout_completed = workout_completed
 
+  last_saved_sets = st.session_state.get("last_saved_sets_completed", 0)
+
+  if target_sets > 0 and reps_per_set > 0 and sets_completed > last_saved_sets:
+      newly_completed = sets_completed - last_saved_sets
+      now_ts = time.time()
+      started_at = st.session_state.get("set_cycle_started_at", now_ts)
+      time_taken = now_ts - started_at
+      user_id = st.session_state.get("user_id", 0)
+      
