@@ -205,6 +205,13 @@ def main():
        df = pd.DataFrame(arr)
 
        if not df.empty:
+            df["Date"] = pd.to_datetime(df["Date"]).dt.date
+            agg_df = df.groupby(["Exercise","Date"]).agg({
+                 "Reps":"sum",
+                 "Sets":"sum",
+                 "Time (sec)": "sum"
+            }).reset_index()
+            agg_df.index += 1
             st.table(df, border="horizontal")
        else:
             st.info("No workout history found.")
