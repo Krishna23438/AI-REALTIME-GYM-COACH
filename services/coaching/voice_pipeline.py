@@ -58,7 +58,9 @@ class VoicePipeline:
        balance = metrics.get("balance_status", "")
 
        if balance == "OFF BALANCE":
-          return "The user is losing balance during the lunges - feet should be hipwidth"
+          return "The user is losing balance during the lunges - feet should be hip-width apart."
+
+    return None
       
 
   def process_event(self, event, exercise, metrics):
