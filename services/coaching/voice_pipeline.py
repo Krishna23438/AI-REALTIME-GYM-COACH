@@ -37,6 +37,12 @@ class VoicePipeline:
     elif exercise == "Bicep Curls (Dumbbell)":
        swing = metrics.get("swing_status", "")
        shoulder = metrics.get("shoulder_status", "")
+
+       if swing == "SWINGING":
+          return "The user is swinging their torse during the curl - keep the body still."
+
+       if shoulder == "ELBOW DRIFITING":
+          return "The user's elbow is drifting away from their side during the curl."
       
 
   def process_event(self, event, exercise, metrics):
