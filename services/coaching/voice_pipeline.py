@@ -8,7 +8,10 @@ class VoicePipeline:
     self.last_spoken_at = 0
 
   def _find_form_issue(self, exercise, metrics):
-    pass
+    if "issue" in metrics:
+      return metrics["issue"]
+
+    
 
   def process_event(self, event, exercise, metrics):
     issue = self._find_form_issue(exercise, metrics)
