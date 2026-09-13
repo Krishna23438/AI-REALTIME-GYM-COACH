@@ -11,7 +11,15 @@ class VoicePipeline:
     if "issue" in metrics:
       return metrics["issue"]
 
-    
+    if exercise == "Squats":
+      depth = metrics.get("depth_status", "")
+      back_angle = metrics.get("back_angle", 180)
+
+      if depth == 'TOO HIGH':
+        return "The user's squat is not deep enough - knees are not bonding sufficciently."
+
+      if isinstance(back_angle, (int, float)) and back_angle < 130:
+        
 
   def process_event(self, event, exercise, metrics):
     issue = self._find_form_issue(exercise, metrics)
