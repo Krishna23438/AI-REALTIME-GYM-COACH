@@ -84,7 +84,7 @@ class VoicePipeline:
 
     return voice, text
 
-  def autoplay_audio(audio_bytes):
+def autoplay_audio(audio_bytes):
     if not audio_bytes:
         return
     
