@@ -14,3 +14,12 @@ class VoicePipeline:
     issue = self._find_form_issue(exercise, metrics)
 
     now = time.time()
+
+    is_major_issue = event in ["workout_started", "set_completed", "workout_complete"]
+
+    if not is_major_issue:
+      if not issue:
+        return None
+
+      if now - self.last_spoken_at < 5:
+        return None
