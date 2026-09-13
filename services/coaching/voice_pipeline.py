@@ -43,6 +43,10 @@ class VoicePipeline:
 
        if shoulder == "ELBOW DRIFITING":
           return "The user's elbow is drifting away from their side during the curl."
+
+    elif exercise == "Shoulder Press":
+       back_arch = metrics.get("back_arch_status", "")
+       extension  = metrics.get("extension_status", "")
       
 
   def process_event(self, event, exercise, metrics):
