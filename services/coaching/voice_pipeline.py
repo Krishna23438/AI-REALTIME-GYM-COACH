@@ -12,3 +12,5 @@ class VoicePipeline:
 
   def process_event(self, event, exercise, metrics):
     issue = self._find_form_issue(exercise, metrics)
+
+    now = time.time()
