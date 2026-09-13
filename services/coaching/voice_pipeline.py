@@ -50,6 +50,9 @@ class VoicePipeline:
 
        if back_arch == "Excessive Arch":
           return "The user is arching their lower back excessively during the press."
+
+       if back_arch == "Slight Arch":
+          return "Slight back arch detected - encourage the user to brace their core."
       
 
   def process_event(self, event, exercise, metrics):
