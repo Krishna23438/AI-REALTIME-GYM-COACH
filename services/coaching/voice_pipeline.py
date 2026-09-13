@@ -19,7 +19,11 @@ class VoicePipeline:
         return "The user's squat is not deep enough - knees are not bonding sufficciently."
 
       if isinstance(back_angle, (int, float)) and back_angle < 130:
-        
+        return "The user is leaning too far forward during the squat."
+
+    elif exercise == "Push-ups":
+      alignment = metrics.get("body_alignment", "")
+      hip_status = metrics.get("hip_status", "")
 
   def process_event(self, event, exercise, metrics):
     issue = self._find_form_issue(exercise, metrics)
