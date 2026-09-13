@@ -53,6 +53,12 @@ class VoicePipeline:
 
        if back_arch == "Slight Arch":
           return "Slight back arch detected - encourage the user to brace their core."
+
+    elif exercise == "Lunges":
+       balance = metrics.get("balance_status", "")
+
+       if balance == "OFF BALANCE":
+          return "The user is losing balance during the lunges - feet should be hipwidth"
       
 
   def process_event(self, event, exercise, metrics):
