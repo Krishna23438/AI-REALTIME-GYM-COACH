@@ -25,8 +25,17 @@ class VoicePipeline:
       alignment = metrics.get("body_alignment", "")
       hip_status = metrics.get("hip_status", "")
 
-      if alignment == "Poor Form":
+      if alignment == "Poor Form": 
         return "The user's body is not straight during the push-up."
+
+      if hip_status == "SAGGING": 
+          return "The user's hips are sagging down during the push-up."
+
+      if hip_status == "PICKED UP": 
+              return "The suser's hips are too high - lower them to form a straight line."
+
+      
+      
 
   def process_event(self, event, exercise, metrics):
     issue = self._find_form_issue(exercise, metrics)
