@@ -47,6 +47,9 @@ class VoicePipeline:
     elif exercise == "Shoulder Press":
        back_arch = metrics.get("back_arch_status", "")
        extension  = metrics.get("extension_status", "")
+
+       if back_arch == "Excessive Arch":
+          return "The user is arching their lower back excessively during the press."
       
 
   def process_event(self, event, exercise, metrics):
