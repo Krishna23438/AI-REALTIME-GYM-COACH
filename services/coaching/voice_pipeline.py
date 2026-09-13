@@ -34,7 +34,9 @@ class VoicePipeline:
       if hip_status == "PICKED UP": 
               return "The suser's hips are too high - lower them to form a straight line."
 
-      
+    elif exercise == "Bicep Curls (Dumbbell)":
+       swing = metrics.get("swing_status", "")
+       shoulder = metrics.get("shoulder_status", "")
       
 
   def process_event(self, event, exercise, metrics):
