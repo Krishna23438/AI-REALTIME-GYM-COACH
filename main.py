@@ -166,6 +166,10 @@ def main():
   if st.session_state.get("audio_to_play"):
        autoplay_audio(st.session_state.audio_to_play)
 
+  if st.session_state.get("coach_feedback"):
+       st.markdown("")
+       st.success(f" ")
+
   if not workout_started:
     st.markdown(
         """
