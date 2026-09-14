@@ -72,5 +72,14 @@ def sync_metrics_update(context):
 
       add_exercise(user_id, exercise, newly_completed * reps_per_set , newly_completed, time_taken)
 
+      if st.session_state.get("voice_pipeline"):
+          result = st.session_state.voice_pipeline.process_event(
+              event = "set_completed",
+              exercise = exercise,
+              metrics = latest_metrics,
+          )
+
+
+
       st.session_state.set_cycle_started_at = now_ts
       st.session_state.last_saved_sets_completed = sets_completed
