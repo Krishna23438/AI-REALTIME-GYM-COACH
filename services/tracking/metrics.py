@@ -86,3 +86,19 @@ def sync_metrics_update(context):
 
       st.session_state.set_cycle_started_at = now_ts
       st.session_state.last_saved_sets_completed = sets_completed
+
+  if workout_completed and not st.session_state.get("last_notified_workout_completed", False):
+      st.session_state.last_notified_workout_completed = True
+
+      if st.session_state.get("voice_pipeline"):
+          result = st.session_state.voice_pipeline.process_event(
+              event = "workout_completed",
+              exercise = exercise,
+              metrics = latest_metrics,
+          )
+
+          if result:
+              st.session_state.audio_to_play, st.session_state.coach_feedback = result
+              
+
+
