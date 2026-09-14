@@ -170,7 +170,21 @@ def main():
        st.markdown("")
        st.success(f"🤖 **Coach:** {st.session_state.coach_feedback}")
 
-  
+  if not workout_started:
+       st.markdown(
+            """
+            <div style="
+                border: 10px dashed #444;
+                border-radius: 0px;
+                padding: 48px 32px;
+                text-align: center;
+                color: #888;
+                margin-top: 32px;
+                margin-bottom: 32px;
+            ">
+
+       """
+       )
 
   if not workout_started:
     st.markdown(
