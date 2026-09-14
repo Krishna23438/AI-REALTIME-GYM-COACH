@@ -11,6 +11,10 @@ from streamlit_webrtc import webrtc_streamer, WebRtcMode , VideoProcessorBase
 from services.vision.exercise_video_processor import VideoProcessorClass
 from services.tracking.metrics import sync_metrics_update
 from services.persistence.exercise_reprository import get_users_exercises
+from groq import Groq
+from services.coaching.llm import LLMCoach
+from services.coaching.tts import TextToSpeech
+from services.coaching.voice_pipeline import VoicePipeline, autoplay_audio
 
 def main():
   st.set_page_config(
@@ -41,7 +45,7 @@ def main():
             llm_coach = LLMCoach(groq_client)
             tts = TextToSpeech()
             st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)
-            
+
                  
 
   workout_started = st.session_state.get("workout_started",False)
