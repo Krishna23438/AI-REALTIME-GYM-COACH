@@ -99,17 +99,17 @@ def main():
                 st.rerun()
 
     else:
-      exercise = st.session_state.get("plan_exercise")
-      sets = st.session_state.get("plan_sets")
-      reps = st.session_state.get("plan_reps")
+      exercise = st.session_state.get("exercise_type")
+      sets = st.session_state.get("target_sets")
+      reps = st.session_state.get("reps_per_set")
 
       st.info(f"**{exercise}** -- {sets} Sets / {reps} Reps")
 
       end_session_button = st.button("End Workout", key="end_session_button",width="stretch")
 
       if end_session_button:
-        st.session_state["workout_started"] = False
-        st.rerun()
+        st.session_state.workout_started = False
+        
 
     if workout_started:
       st.divider()
