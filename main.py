@@ -46,6 +46,9 @@ def main():
             tts = TextToSpeech()
             st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)
 
+       except Exception as e:
+            st.session_state.voice_pipeline = None
+
                  
 
   workout_started = st.session_state.get("workout_started",False)
