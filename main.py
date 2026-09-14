@@ -116,7 +116,11 @@ def main():
                   exercise=exercise,
                   metrics={}
              )
+             if result:
+                  st.session_state.audio_to_play, st.session_state.coach_feedback = result
 
+        st.rerun()
+        
     if workout_started:
       st.divider()
 
