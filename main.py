@@ -109,7 +109,13 @@ def main():
 
       if end_session_button:
         st.session_state.workout_started = False
-        
+
+        if st.session_state.voice_pipeline:
+             result = st.session_state.voice_pipeline.process_event(
+                  event="workout_completed",
+                  exercise=exercise,
+                  metrics={}
+             )
 
     if workout_started:
       st.divider()
