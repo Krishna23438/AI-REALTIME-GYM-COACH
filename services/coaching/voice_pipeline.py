@@ -1,6 +1,6 @@
 import time
 import streamlit as st
-
+from services.coaching.exercise_instruction import EXERCISE_INSTRUCTIONS
 
 class VoicePipeline:
     def __init__(self, llm, tts):
@@ -83,6 +83,15 @@ class VoicePipeline:
         self.last_spoken_at = now
 
         return voice, text
+
+    def get_exercise_instructions(self, exercise):
+
+      instructions = EXERCISE_INSTRUCTIONS.get(exercise)
+
+      if not instructions:
+        return None
+
+      return instructions
     
 
 def autoplay_audio(audio_bytes):
