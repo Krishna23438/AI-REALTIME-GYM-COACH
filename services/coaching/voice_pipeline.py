@@ -68,7 +68,11 @@ class VoicePipeline:
 
         now = time.time()
 
-        is_major_issue = event in ["workout_started", "set_completed", "workout_completed"]
+        is_major_issue = event in [
+        "workout_started",
+        "set_completed",
+        "workout_completed"
+          ]
 
         if not is_major_issue:
             if not issue:
@@ -77,12 +81,30 @@ class VoicePipeline:
             if now - self.last_spoken_at < 5:
                 return None
             
-        text = self.llm.give_feedback(event, issue)
-        voice = self.tts.speak(text)
+        try:
 
-        self.last_spoken_at = now
+          text = self.llm.give_feedback(
+            event,
+            issue
+          )
 
-        return voice, text
+          if not text:
+            return None
+
+          voice = self.tts.speak(text)
+
+          if not voice:
+            return None
+
+          self.last_spoken_at = now
+
+          return voice, text
+
+        except Exception as e:
+
+         print("VOICE PIPELINE ERROR:", e)
+
+         return None
 
     def get_exercise_instructions(self, exercise):
 
