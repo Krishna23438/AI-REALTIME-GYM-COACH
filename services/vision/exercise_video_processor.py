@@ -1,6 +1,7 @@
 import os
 import cv2
 import av
+import time
 import numpy as np
 import mediapipe as mp
 import threading
@@ -189,44 +190,127 @@ class VideoProcessorClass(VideoProcessorBase):
         )
 
     def recv(self, frame):
-        image = np.asarray(
-            cv2.flip(frame.to_ndarray(format="bgr24"), 1),
-            dtype=np.uint8
-        )
+        try:
 
-        mp_image = mp.Image(
-            image_format=mp.ImageFormat.SRGB,
-            data=cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        )
+        # -------------------------
+        # Convert WebRTC frame
+        # -------------------------
+            image = frame.to_ndarray(format="bgr24")
 
-        self._frame_timestamps_ms += 30
-        result = self._landmarker.detect_for_video(mp_image, self._frame_timestamps_ms)
 
-        if result.pose_landmarks:
-            landmarks = result.pose_landmarks[0]
+        # -------------------------
+        # Mirror camera
+        # -------------------------
+            image = cv2.flip(image, 1)
 
-            self._draw_skeleton(image, landmarks)
 
-            ex_type = self.get_exercise()
+        # -------------------------
+        # BGR -> RGB
+        # -------------------------
+            rgb_image = cv2.cvtColor(
+                image,
+                cv2.COLOR_BGR2RGB
+            )
 
-            detector = self._detectors.get(ex_type)
 
-            if detector:
-                metrics = detector.process(landmarks)
+        # -------------------------
+        # MediaPipe image
+        # -------------------------
+            mp_image = mp.Image(
+                image_format=mp.ImageFormat.SRGB,
+                data=rgb_image
+            )
 
-                metrics["pose_detected"] = True
 
-                self._draw_overlays(image, metrics, ex_type)
+        # -------------------------
+        # Timestamp
+        # -------------------------
+            current_timestamp_ms = int(time.monotonic() * 1000)
 
-                self.set_latest_metrics(metrics)
-        else:
-            self._draw_no_pose_warnings(image)
-            
-            with self._lock:
-                if self._latest_metrics is not None:
-                    self._latest_metrics["pose_detected"] = False
-                else:
-                    self._latest_metrics = {"pose_detected": False}
+            if current_timestamp_ms <= self._frame_timestamps_ms:
+                current_timestamp_ms = self._frame_timestamps_ms + 1
 
-        return av.VideoFrame.from_ndarray(image, format="bgr24")
-    
+            self._frame_timestamps_ms = current_timestamp_ms
+
+        # -------------------------
+        # MediaPipe
+        # -------------------------
+
+
+            result = self._landmarker.detect_for_video(
+                mp_image,
+                self._frame_timestamps_ms
+            )
+
+
+        # -------------------------
+        # Pose detected
+        # -------------------------
+            if result.pose_landmarks:
+
+
+                landmarks = result.pose_landmarks[0]
+
+                ex_type = self.get_exercise()
+
+                detector = self._detectors.get(ex_type)
+
+                if detector:
+
+
+                    metrics = detector.process(landmarks)
+
+                    metrics["pose_detected"] = True
+
+                # -------------------------
+                # Skeleton
+                # -------------------------
+
+
+                    self._draw_skeleton(
+                        image,
+                        landmarks
+                    )
+
+
+                # -------------------------
+                # Overlay
+                # -------------------------
+
+                    self._draw_overlays(
+                        image,
+                        metrics,
+                        ex_type
+                    )
+
+                    self.set_latest_metrics(metrics)
+
+            else:
+
+                self._draw_no_pose_warnings(image)
+
+                with self._lock:
+                    if self._latest_metrics is not None:
+                        self._latest_metrics["pose_detected"] = False
+                    else:
+                        self._latest_metrics = {"pose_detected": False}
+
+        # -------------------------
+        # Return frame
+        # -------------------------
+
+
+            return av.VideoFrame.from_ndarray(
+                image,
+                format="bgr24"
+            )
+
+        except Exception as e:
+
+
+            import traceback
+            traceback.print_exc()
+
+        # IMPORTANT:
+        # Return the original frame instead of killing WebRTC
+            return frame
