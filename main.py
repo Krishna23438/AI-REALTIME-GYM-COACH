@@ -120,7 +120,7 @@ def main():
                   st.session_state.audio_to_play, st.session_state.coach_feedback = result
 
         st.rerun()
-        
+
     if workout_started:
       st.divider()
 
@@ -202,26 +202,7 @@ def main():
        unsafe_allow_html=True
        )
 
-  if not workout_started:
-    st.markdown(
-        """
-        <div style="
-            border: 10px dashed #444;
-            border-radius: 0px;
-            padding: 48px 32px;
-            text-align: center;
-            color: #888;
-            margin-top: 32px;
-        ">
-            <h2 style="color:#ccc; margin-bottom:8px;">👈 Set your workout plan</h2>
-            <p style="font-size:1.05rem;">
-                Choose your exercise, sets and reps in the sidebar,<br>
-                then click <strong>Start Workout</strong> to activate the camera and AI coach.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+  
   else:
     context = webrtc_streamer(
         key="exercise-analysis",
