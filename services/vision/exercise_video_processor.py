@@ -289,9 +289,11 @@ class VideoProcessorClass(VideoProcessorBase):
 
                 self._draw_no_pose_warnings(image)
 
-                self.set_latest_metrics({
-                    "pose_detected": False
-                })
+                with self._lock:
+                    if self._latest_metrics is not None:
+                        self._latest_metrics["pose_detected"] = False
+                    else:
+                        self._latest_metrics = {"pose_detected": False}
 
         # -------------------------
         # Return frame
