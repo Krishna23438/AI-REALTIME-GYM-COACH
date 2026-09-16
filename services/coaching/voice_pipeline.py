@@ -1,7 +1,5 @@
 import time
 import streamlit as st
-from services.coaching.exercise_instruction import EXERCISE_INSTRUCTIONS
-import threading
 
 
 class VoicePipeline:
@@ -9,8 +7,6 @@ class VoicePipeline:
         self.llm = llm
         self.tts = tts
         self.last_spoken_at = 0
-        self._lock = threading.Lock()
-        self._busy = False
 
     def _find_form_issue(self, exercise, metrics):
         if "issue" in metrics:
@@ -68,46 +64,11 @@ class VoicePipeline:
         return None
 
     def process_event(self, event, exercise, metrics):
-        now = time.time()
-
-        if event == "ongoing_form_check":
-
-            instruction = get_realtime_instruction(
-             exercise,
-             metrics
-            )
-
-        # No problem detected
-            if not instruction:
-              return None
-
-        # Wait 5 seconds before speaking again
-            if now - self.last_spoken_at < 5:
-              return None
-
-            try:
-             voice = self.tts.speak(instruction)
-
-             if not voice:
-                return None
-
-             self.last_spoken_at = now
-
-             return voice, instruction
-
-            except Exception as e:
-              print("REAL-TIME VOICE ERROR:", e)
-              return None
-            
         issue = self._find_form_issue(exercise, metrics)
 
-        
+        now = time.time()
 
-        is_major_issue = event in [
-        "workout_started",
-        "set_completed",
-        "workout_completed"
-          ]
+        is_major_issue = event in ["workout_started", "set_completed", "workout_completed"]
 
         if not is_major_issue:
             if not issue:
@@ -116,32 +77,12 @@ class VoicePipeline:
             if now - self.last_spoken_at < 5:
                 return None
             
-        try:
+        text = self.llm.give_feedback(event, issue)
+        voice = self.tts.speak(text)
 
-          text = self.llm.give_feedback(
-            event,
-            issue
-          )
+        self.last_spoken_at = now
 
-          if not text:
-            return None
-
-          voice = self.tts.speak(text)
-
-          if not voice:
-            return None
-
-          self.last_spoken_at = now
-
-          return voice, text
-
-        except Exception as e:
-
-         print("VOICE PIPELINE ERROR:", e)
-
-         return None
-
-    
+        return voice, text
     
 
 def autoplay_audio(audio_bytes):
