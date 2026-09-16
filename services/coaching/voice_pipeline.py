@@ -1,12 +1,16 @@
 import time
 import streamlit as st
 from services.coaching.exercise_instruction import EXERCISE_INSTRUCTIONS
+import threading
+
 
 class VoicePipeline:
     def __init__(self, llm, tts):
         self.llm = llm
         self.tts = tts
         self.last_spoken_at = 0
+        self._lock = threading.Lock()
+        self._busy = False
 
     def _find_form_issue(self, exercise, metrics):
         if "issue" in metrics:
@@ -64,9 +68,40 @@ class VoicePipeline:
         return None
 
     def process_event(self, event, exercise, metrics):
+        now = time.time()
+
+        if event == "ongoing_form_check":
+
+            instruction = get_realtime_instruction(
+             exercise,
+             metrics
+            )
+
+        # No problem detected
+            if not instruction:
+              return None
+
+        # Wait 5 seconds before speaking again
+            if now - self.last_spoken_at < 5:
+              return None
+
+            try:
+             voice = self.tts.speak(instruction)
+
+             if not voice:
+                return None
+
+             self.last_spoken_at = now
+
+             return voice, instruction
+
+            except Exception as e:
+              print("REAL-TIME VOICE ERROR:", e)
+              return None
+            
         issue = self._find_form_issue(exercise, metrics)
 
-        now = time.time()
+        
 
         is_major_issue = event in [
         "workout_started",
@@ -106,14 +141,7 @@ class VoicePipeline:
 
          return None
 
-    def get_exercise_instructions(self, exercise):
-
-      instructions = EXERCISE_INSTRUCTIONS.get(exercise)
-
-      if not instructions:
-        return None
-
-      return instructions
+    
     
 
 def autoplay_audio(audio_bytes):
