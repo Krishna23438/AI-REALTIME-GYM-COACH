@@ -168,14 +168,9 @@ def main():
     st.title("AI Real-time GYM Coach")
     st.markdown("#### Real-time pose detection with proactive AI voice coaching")
  
-    audio = st.session_state.get("audio_to_play")
+    if st.session_state.get("audio_to_play"):
+        autoplay_audio(st.session_state.audio_to_play)
 
-    if audio:
-      autoplay_audio(audio)
-
-      # Prevent the same audio from playing again
-      st.session_state.audio_to_play = None
-      
     if st.session_state.get("coach_feedback"):
         st.markdown("")
         st.success(f"🤖 **Coach:** {st.session_state.coach_feedback}")

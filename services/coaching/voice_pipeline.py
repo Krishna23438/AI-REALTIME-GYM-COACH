@@ -1,5 +1,6 @@
 import time
 import streamlit as st
+import threading
 
 
 class VoicePipeline:
@@ -7,6 +8,8 @@ class VoicePipeline:
         self.llm = llm
         self.tts = tts
         self.last_spoken_at = 0
+        self._lock = threading.Lock()
+        self._busy = False
 
     def _find_form_issue(self, exercise, metrics):
         if "issue" in metrics:
@@ -63,26 +66,32 @@ class VoicePipeline:
 
         return None
 
-    def process_event(self, event, exercise, metrics):
+    def process_event(self, event, exercise, metrics,on_result):
+        if self._busy:
+            return
+        
         issue = self._find_form_issue(exercise, metrics)
 
         now = time.time()
 
-        is_major_issue = event in ["workout_started", "set_completed", "workout_completed"]
+        is_major = event in ["workout_started", "set_completed", "workout_completed"]
+        if not is_major and (not issue or now - self.last_spoken_at < 5):
+            return
 
-        if not is_major_issue:
-            if not issue:
-                return None
-            
-            if now - self.last_spoken_at < 5:
-                return None
-            
-        text = self.llm.give_feedback(event, issue)
-        voice = self.tts.speak(text)
+        def _run():
+            try:
+                text = self.llm.give_feedback(event, issue)
+                voice = self.tts.speak(text)
+                with self._lock:
+                    self.last_spoken_at = time.time()
+                on_result(voice, text)
+            except Exception as e:
+                print(f"[voice_pipeline] failed: {e}")
+            finally:
+                self._busy = False
 
-        self.last_spoken_at = now
-
-        return voice, text
+        self._busy = True
+        threading.Thread(target=_run, daemon=True).start()
     
 
 def autoplay_audio(audio_bytes):
